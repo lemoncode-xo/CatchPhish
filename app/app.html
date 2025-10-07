@@ -1,0 +1,412 @@
+<!-- Author: Ojo Philemon J
+Final year project
+Built at diffrent times in 2021, 2022 and 2023 
+-->
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="author" content="Ojo Philemon / Lemoncod3">
+
+    <link rel="icon" href="../build/icon.png">
+
+    <title>Catch-Phish</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional CSS -->
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/style_table.css" rel="stylesheet">
+    <link href="./css/preloader-jump.css" rel="stylesheet">
+    
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';"/>
+  </head>
+
+  <body class="text-center">
+    <!-- Nav(Custom Taskbar) Start -->
+    <nav class="navbar navbar-expand-lg fixed-top page-heading">
+      <a class="navbar-brand" href="#">Catch-Phish</a>
+      <div class="navbar-nav mr-auto"></div> <!--Give space between Name and button underlines-->
+      <div class="my-2 my-lg-0 ">
+        <div class="row nav-underline">
+          <div class="col-md-4"><hr class="btn-outline-info"></hr></div>            
+          <div class="col-md-4"><hr class="btn-outline-success"></hr></div>
+          <div class="col-md-4"><hr class="btn-outline-danger"></hr></div>
+        </div>
+      </div>
+    </nav>
+    <!-- Nav(Custom Taskbar) End -->
+
+    <!-- Internet connection status Start -->
+    <div>
+      <span id="ics"></span>
+    </div>
+    <!-- Internet connection status End -->
+      
+    <!-- Main(Banner Message) Start -->
+    <main role="main" id="intro-msg">
+      <div class="container-fluid centered-container">
+        <div class="centered-intro col-12" >
+          <h5 class="lead">Catch-Phish makes use of cutting-edge technologies and algorithms powered by IPQualityScore to automatically detect 
+            <i>phishing (& other intternet security risks)</i> on webpages in realtime...
+            <br>It also gives you usefull recon information on that webpage.
+          </h5>
+        </div>
+      </div>
+    </main>
+    <!-- Main(Banner Message) End -->
+
+    <!-- Search Start {Absolute position}-->
+    <form id="searchbox" action="javascript:void(0);">
+      <div class="tb">
+        <div class="td">
+          <input type="text" placeholder="Paste/Type link, domain or IP Address here..." id="url" required>
+        </div>
+        <div class="td" id="s-cover" title="Search">
+          <button type="submit" id="submit" onclick="processInput();" title="submit">
+            <div id="s-circle"></div>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </form>
+    <div><!-- Refresh button -->
+      <img src="./images/icon_refresh.svg" onclick="window.location.href=window.location.href" id="refresh-btn" title="Refresh" >
+    </div><!--./Refresh button -->
+
+    <!-- using params/arguments to search -->
+    <script type="text/javascript">
+      const winLocation = window.location;
+      const urlObject = new URL(winLocation);
+      const url = urlObject.searchParams.get('url');
+      
+      document.getElementById('url').value = url;
+      setTimeout(function () {processInput();}, 200);
+    </script>
+    <!-- ./using params/arguments to search -->
+
+    <!-- Search End {Absolute position} -->
+
+    <!-- Search Result Start onclick="window.print()"-->
+    <button class="btn-success print-btn" id="printBtn" onclick="printOut('search-result')">&#128438;</button> <!--Print result--> 
+  
+    <div id="search-result">
+      <div class="container container-fluid">
+          
+        <!-- ***** Result Preloader Start ***** -->
+        <div id="preloader">
+          <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+
+        <div id="preloader_2">
+          <div class="jumper_2">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+
+        <script type="text/javascript">
+          //Preloader continously showing. disabled when fetch is complete
+          $("#preloader").animate({'opacity': '0'},600,  
+              function () { 
+                  setTimeout(function () {$("#preloader").css("visibility", "hidden").fadeOut();},500);
+              }
+          );
+
+          $("#preloader_2").animate({'opacity': '0'},600,  
+              function () { 
+                  setTimeout(function () {$("#preloader_2").css("visibility", "hidden").fadeOut();},500);
+              }
+          );
+        </script>
+        <!-- //***** Result Preloader End ***** -->
+
+        <!-- ***** Fetch Message Start ***** -->
+        <div class="row">
+          <div class="col-12" style="padding: 0.5em 0 0 0;">
+            <h6 id="result"></h6>
+          </div>
+        </div>
+        <!-- //***** Fetch Message End ***** -->
+
+        <!-- ***** Results Start ***** -->
+        <section class="ftco-section">
+          <div class="container">
+            <div class="row justify-content-center">
+            
+              <!-- Major Details Start -->
+              <div class="row" id="major-details">
+                <div class="col-md-12 col-12 mb-5"> 
+                  <div class="table-wrap">
+                    <table class="table">   
+                      <tbody class="thead-dark text-left">
+                      
+                        <!-- Risk Score, Suspicious?  Start -->
+                        <tr>
+                          <th scope="row">Risk Score</th>
+                          <th id="risk-score"></th>
+                          <th scope="row">Suspicious page?</th>
+                          <th id="suspicious-page"></th>
+                        </tr>
+                        <!-- // Risk Score, Suspicious? End ***** -->
+
+                        <!-- Phishing?, Spamming? Start -->
+                        <tr>
+                          <th scope="row">Phishing Page?</th>
+                          <th id="phishing-page"></th>
+                          <th scope="row">Spamming page?</th>
+                          <th id="spamming-page"></th>
+                        </tr>
+                        <!-- // Phishing?, Spamming? End ***** -->
+                      
+                        <!-- Malware?, Unsafe? Start -->
+                        <tr>
+                          <th scope="row">Malware page?</th>
+                          <th id="malware-page"></th>
+                          <th scope="row">Unsafe page?</th>
+                          <th id="unsafe-page"></th>
+                        </tr>
+                        <!-- // Malware?, Unsafe? End ***** -->
+                      
+                      </tbody>
+                    </table>
+                  </div>
+                  
+                  <span id="showQuickNotes" class="text-center" style="cursor:pointer;" onclick="showQuickNotes()" >&#9888;</span> <!-- warning symbol -->
+                  <span id="hideQuickNotes" class="text-center" style="display: none; cursor:pointer;" onclick="hideQuickNotes()">&#128473;</span> <!-- cancel symbol -->
+
+                  <!-- Quick Notes Start -->
+                  <div id="quick-notes" class="text-center" style="font-size: 20; display: none; background-color: black;">
+
+                    <ul class="text-left">
+                      <!-- <span>&#9888;</span>   warning symbol -->
+                      <li>
+                        <h6>
+                          <span style="color: #ffc107;">Risk Scores >= 75 - suspicious</span> | usually due to patterns associated with malicious links.
+                          A domain marked with {Suspicious? = "Yes"} indicates a domain with high chance of being involved in abusive behavior.
+                        </h6>
+                      </li>
+                      <li>
+                        <h6>
+                          <span style="color: #ff7c7c;">Risk Scores >= 85 - high risk</span> | strong confidence the URL is malicious.
+                        </h6>
+                      </li>
+                      <li>
+                        <h6>
+                          <span style="color: #ff0000;"> Risk Scores = 100 AND Phishing = "true" OR Malware = "true"</span> | indicates confirmed malware or phishing activity in the past 24-48 hours.
+                        </h6>
+                      </li>
+                    </ul>
+
+                    <!-- Other details Start -->
+                    <span style="cursor:pointer; opacity: 65%;" onclick="window.open('#other-details', '_self')" >
+                      other <b style="font-size: 1.75rem; color: #6c757d;">&#8650;</b> details
+                    </span>
+                    <!-- // Other details End *****-->
+
+                    <!-- JavaScript to toggle visibility of Quick notes -->
+                    <script>
+                      function showQuickNotes() {
+                        $("#quick-notes").css("display","block")
+                        $("#showQuickNotes").css("display","none")
+                        $("#hideQuickNotes").css("display","block")
+                      }
+    
+                      function hideQuickNotes() {
+                        $("#quick-notes").css("display","none")
+                        $("#showQuickNotes").css("display","block")
+                        $("#hideQuickNotes").css("display","none")
+                      }
+                    </script>
+                    <!-- JavaScript to toggle visibility of Quick notes -->
+
+                  </div>
+                  <!-- //Quick Notes End *****-->
+                
+                </div>
+              </div>
+              <!-- Major Details End ***** -->
+            
+              <!-- Other Details Start -->
+              <div class="row" id="other-details">
+                <div class="col-md-12 col-12 text-left mb-5">
+                  <div class="table-wrap">
+                    <table class="table">
+                      <tbody>
+                        <!-- IP-Address, Server Start -->
+                        <tr class="alert" role="alert">
+                          <th scope="row">IP Address</th>
+                          <td id="ip-address"></td>
+                          <th scope="row">Server</th>
+                          <td id="server"></td>
+                          <!-- <td>
+                            <a href="#" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                            </a>
+                          </td> -->
+                        </tr>
+                        <!-- //IP-Address, Server End ***** -->
+
+                        <!-- Page size, content type Start -->
+                        <tr class="alert" role="alert">
+                          <th scope="row">Page Size</th>
+                          <td id="page-size"></td>
+                          <th scope="row">Content Type</th>
+                          <td id="content-type"></td>
+                          <!-- <td>
+                            <a href="#" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                            </a>
+                          </td> -->
+                        </tr>
+                        <!-- //Page size, content type End ***** -->
+
+                        <!-- Domain age, page category Start -->
+                        <tr class="alert" role="alert">
+                          <th scope="row">Domain age</th>
+                          <td id="domain-age"></td>
+                          <th scope="row">Page Category</th>
+                          <td id="page-category"></td>
+                          <!-- <td>
+                            <a href="#" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                            </a>
+                          </td> -->
+                        </tr>
+                        <!-- //Domain age, page category End ***** -->
+                        
+                        <!-- Adult page, parking page  Start -->
+                        <tr class="alert" role="alert">
+                          <th scope="row">Adult Page?</th>
+                          <td id="adult-page"></td>
+                          <th scope="row">Parking Page?</th>
+                          <td id="parking-page"></td>
+                          <!-- <td>
+                            <a href="#" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                            </a>
+                          </td> -->
+                        </tr>
+                        <!-- //Adult page, parking page End ***** -->
+
+                        <!-- DNS valid, Domain rank Start -->
+                        <tr class="alert" role="alert">
+                          <th scope="row">Is Domain DNS valid?</th>
+                          <td id="dns-valid"></td>
+                          <th scope="row">Domain rank</th>
+                          <td id="domain-rank"></td>
+                          <!-- <td>
+                            <a href="#" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                            </a>
+                          </td> -->
+                        </tr>
+                        <!-- //DNS valid, Domain rank End ***** -->
+
+                        <!-- Domain location -->
+                        <tr class="alert" role="alert">
+                          <th scope="row">Domain location:</th>
+                          <td>
+                            <span id="domain-city"></span>
+                            <span id="domain-country"></span>
+                          </td>
+                          <td>
+                            [long,lat]
+                            <br>
+                            <span id="domain-latitude"></span>, 
+                            <span id="domain-longitude"></span>
+                          </td>
+                          <td id="domain-continent"></td>
+                        </tr>
+                        <!-- //Domain location -->
+
+                        <!-- User's location -->
+                        <tr class="alert" role="alert">
+                          <th scope="row">Your location:</th>
+                          <td>
+                            <span id="usr-city"></span>
+                            <span id="usr-country"></span>
+                          </td>
+                          <td>
+                            [long,lat]
+                            <br>
+                            <span id="usr-latitude"></span>, 
+                            <span id="usr-longitude"></span>
+                          </td>
+                          <td id="usr-continent"></td>
+                        </tr>
+                        <!-- // User's location -->
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <!-- //Other Details End *****-->
+            
+            </div>
+          </div>
+        </section>
+        <!-- //***** Results END ***** -->
+
+        <!-- ***** Loacations & Map Start ***** -->
+        <div class="col-12">
+          <div class="container container-fluid">
+            
+            <!-- Map view start -->
+            <div class="row justify-content-center" id="map-view">
+              <div class="col-12" >
+                <h5 class="btn-dark">Map view of IP Address location</h5>
+                <div class="gmap_canvas">
+                  <iframe title="map" width="100%" height="500" id="gmap_canvas" src=""
+                      frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+                  </iframe>
+                  <style>.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:100%;}</style>
+                </div>
+              </div>
+            </div>
+            <!-- // Map view End -->
+
+          </div>
+        </div>
+        <!-- ***** Loacations & Map End ***** -->
+      
+        <!-- End -->
+        <div class="row">
+          <div class="col-12 text-center">
+            <span>------- End of Result -------</span>
+          </div>
+        </div>
+        <!-- End -->
+
+      </div>
+    </div>
+    <!-- //Search Result End -->
+
+    <!-- Footer Start -->
+    <footer class="footer">
+      <div class="container">
+        <span>Catch-Phish | Author: Ojo Philemon</span>    
+      </div>
+    </footer>
+    <!-- // Footer End -->
+    
+    <!-- Bootstrap core JavaScript ==================== -->
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="./js/jquery-3.3.1min.js"></script>
+
+    <!-- Additional Scripts -->
+    <script type="text/javascript" src="../functions.js"></script>
+  </body>
+</html>

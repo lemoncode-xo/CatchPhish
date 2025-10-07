@@ -1,0 +1,30 @@
+IPQS API JSON DATA RETURN VALUES
+
+        UNUSED                            USED
+{
+                                "message": "Success.",
+    "success": true,
+                                "unsafe": false,
+                                "domain": "google.com",
+                                "ip_address": "172.217.7.206",
+                                "server": "nginx",
+                                "content_type": "text\/html; charset=UTF-8",
+    "status_code": 200,
+                                "page_size": 68553,
+                                "domain_rank": 1,
+                                "dns_valid": true,
+                                "parking": false,
+                                "spamming": false,
+                                "malware": false,
+                                "phishing": false,
+                                "suspicious": false,
+                                "adult": false,
+                                "risk_score": 0,
+    "domain_age": {
+                                "human": "3 months ago",
+        "timestamp": 1568061634,
+        "iso": "2019-09-09T16:40:34-04:00"
+    },
+                                "category": "Search Engine",
+    "request_id": "4ZGSfWu9RDf3oH"
+}

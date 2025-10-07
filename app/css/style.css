@@ -1,0 +1,358 @@
+/*
+ * Globals
+ */
+
+/* Links */
+a,
+a:focus,
+a:hover {
+  color: #fff;
+}
+
+/* Custom default button */
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
+  color: #333;
+  text-shadow: none; /* Prevent inheritance from `body` */
+  background-color: #fff;
+  border: .05rem solid #fff;
+}
+
+/*
+ * Base structure
+ */
+
+html,
+body {
+  overflow: hidden;
+  height: 100%;
+  padding-top: 4rem;
+  background-color: #2e2e2e;
+}
+
+body {
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -ms-flex-pack: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  color: #fff;
+  text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+  box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+
+  background-image: url(../images/banner-bg.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+/*
+ * Header(nav) Style
+ */
+.page-heading {
+	/* background-image: url(../images/heading-bg.jpg); */
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	text-align: center;
+  -webkit-app-region: drag; /* Make Window Draggable */
+}
+/* Colored underlines for Minimize, maximize and close buttons */
+.nav-underline {
+  width: 136px !important;
+  justify-items: center;
+}
+.nav-underline > div {
+  padding: 0 3px;
+}
+.nav-underline > div > hr{
+  width: 2.5em;
+}
+
+/* 
+  Internet connection status
+ */
+#ics{
+  position: absolute; 
+  top: 13%;
+  left: 0%; 
+  right: 0%; 
+  /* color: #ff7575; background-color: #f5f5f5; */
+  color: #f5f5f5; background-color: #ff0000;
+  box-shadow: 0px 2px 4px #ff7c7c;
+  z-index: 9999;
+}
+
+#url{
+  font-size: 30px;
+}
+
+/*
+ * Banner Message
+ */
+.centered-container {
+  width: auto;
+  max-width: 680px;
+  padding: 0 15px;
+}
+.centered-intro {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+/* 
+  Search Box
+*/
+#searchbox
+{
+  position: absolute; 
+  top: 46%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 20px 25px;
+  margin: auto;
+  
+  background-color: #ff7575;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px #ff7c7c, 0 0 0 15px #ffffffeb;
+  transform: scale(0.6);
+}
+
+/* Applied only when searchbox is shrinked */
+.shrink{
+  padding: 15px 25px !important;
+  top: 15% !important;
+}
+/* ./Applied only when searchbox is shrinked */
+
+.tb
+{
+  display: table;
+  width: 100%;
+}
+
+.td
+{
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.td>input, .td>button
+{
+  color: #fff;
+  font-family: Nunito;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background-color: transparent;
+}
+
+input[type="text"]
+{
+  width: 100%;
+  height: 100%;
+  font-size: 40px;
+  line-height: 1;
+  color: #fff;
+}
+
+input[type="text"]::placeholder
+{
+  color: rgb(221, 215, 215);
+}
+
+#s-cover
+{
+  width: 1px;
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+.td>button
+{
+  position: relative;
+  display: block;
+  /* width: 84px; */
+  width: auto;
+  /* height: 90px; */
+  height: auto;
+  cursor: pointer;
+}
+
+#s-circle
+{
+  position: relative;
+  top: -14px;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  margin-top: 0;
+  border: 8px solid #fff;
+  background-color: transparent;
+  border-radius: 50%;
+  transition: 0.5s ease all;
+}
+
+.td>button span
+{
+  position: absolute;
+  top: 35px;
+  left: 25px;
+  display: block;
+  width: 45px;
+  height: 15px;
+  background-color: transparent;
+  border-radius: 10px;
+  transform: rotateZ(52deg);
+  transition: 0.5s ease all;
+}
+
+.td>button span:before, .td>button span:after
+{
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 45px;
+  height: 15px;
+  background-color: #fff;
+  border-radius: 10px;
+  transform: rotateZ(0);
+  transition: 0.5s ease all;
+}
+
+#s-cover:hover #s-circle
+{
+  top: -1px;
+  width: 67px;
+  height: 15px;
+  border-width: 0;
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+#s-cover:hover span
+{
+  top: 50%;
+  left: 56px;
+  width: 25px;
+  margin-top: -9px;
+  transform: rotateZ(0);
+}
+
+#s-cover:hover button span:before
+{
+  bottom: 11px;
+  transform: rotateZ(52deg);
+}
+
+#s-cover:hover button span:after
+{
+  bottom: -11px;
+  transform: rotateZ(-52deg);
+}
+
+#s-cover:hover button span:before, #s-cover:hover button span:after
+{
+  right: -6px;
+  width: 40px;
+  background-color: #fff;
+}
+
+
+/* 
+  Refresh Button
+ */
+#refresh-btn{
+  width: 43px;
+  height: 43px;
+  cursor: pointer;
+  position: absolute; 
+  left: 82.5%; 
+  top: 18.5%; 
+  filter: invert(100); 
+  display: none;
+} 
+#refresh-btn:hover{
+  filter: invert(64%) sepia(9%) saturate(5124%) hue-rotate(318deg) brightness(102%) contrast(97%);
+}
+
+/* 
+  Search Result
+*/
+#search-result {
+  overflow-y: auto;
+  position: absolute;
+  width: 80%;
+  height: 60%;
+  left: 10%;
+  right: 10%;
+  top: 31%; 
+  bottom: 10%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+#search-result::-webkit-scrollbar {
+  width: 6px;
+  height: 8px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+/* Add a thumb */
+#search-result::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px #ff7575;/*rgba(34, 33, 33, 0.5);*/
+  border-radius: 15px;
+}
+#search-result::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 15px;
+}
+
+/*
+ * Footer
+ */
+html {
+  position: relative;
+}
+
+/* body {
+   margin-bottom: 60px; /*Margin bottom by footer height *
+} */
+
+.footer {
+  color: #fff;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px; /* Set the fixed height of the footer here */
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+
+	background-image: url(../images/footer-bg.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+}
+
+.print-btn {
+  position: absolute;
+  display: none;
+  top: 30%;
+  left: 93%;
+  right: 0;
+  bottom: 35%;  
+  width: 50px;
+  height: 30px;
+  cursor: pointer;
+}
+@media print {
+  /*Styles Here*/
+  #printBtn{
+    visibility: hidden;
+  }
+  #map-view{
+    display: none;
+  }
+}
