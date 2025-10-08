@@ -43,10 +43,10 @@ CatchPhish is a cross-platform desktop application that scans URLs for phishing 
 Download the latest pre-built installer for your operating system from the [Releases page](https://github.com/lemoncode-xo/CatchPhish/releases/latest).
 
 **Available installers:**
-- Windows: `CatchPhish-x.x.x-win32-x64.exe`
+- Windows: `CatchPhishSetup-x.x.x-win32-x64.exe`
 
 After downloading, run the installer and follow the on-screen instructions.
-Process to updating your `.env.example` file in your installation directory to contain your IPQualityScore API key as shown [here](#3-configure-api-keys).
+Proceed to editing the `.env` file in your installation directory to contain your IPQualityScore API key as shown [here](#3-configure-api-keys).
 
 ### Manual Installation (For Developers)
 
@@ -62,8 +62,8 @@ If you want to build from source or contribute to development:
 ```json
 {
   "electron": "Latest stable version",
-  "electron-packager": "For packaging",
-  "dotenv": "For .env variables support"
+  "electron-packager": "For packaging installer",
+  "dotenv": "For environment variables support"
 }
 ```
 
