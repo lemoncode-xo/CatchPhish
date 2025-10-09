@@ -40,7 +40,7 @@ CatchPhish is a cross-platform desktop application that scans URLs for phishing 
 
 ### Quick Install (Recommended)
 
-Download the latest pre-built installer for your operating system from the [Releases page](https://github.com/lemoncode-xo/CatchPhish/releases/latest).
+Download the latest pre-built installer or portable version of CatchPhish for Windows from the [Releases page](https://github.com/lemoncode-xo/CatchPhish/releases/latest).
 
 **Available installers:**
 - Windows: `CatchPhishSetup-x.x.x-win32-x64.exe`
