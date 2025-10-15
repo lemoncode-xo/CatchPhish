@@ -4,11 +4,11 @@ A real-time phishing page detection and reconnaissance system built with Electro
 
 ## Overview
 
-CatchPhish is a cross-platform desktop application that scans URLs for phishing attempts, malware, and other security risks. It integrates with IPQualityScore's Malicious URL Scanner API to provide comprehensive security analysis including risk scores, domain reputation, SSL certificate validation, and geographical location data. As a whole, CatchPhish comes with a browser extension component that facilitates more real time and convinient webpage analysis, which can be found [here](https://github.com/lemoncode-xo/CatchPhish-Browser-Extension).
+CatchPhish is a cross-platform desktop application that scans URLs for phishing attempts, malware, and other security risks. It integrates with IPQualityScore's Malicious URL Scanner API to provide comprehensive security analysis including risk scores, domain reputation, SSL certificate validation, and geographical location data. CatchPhish also utilizes its own [browser extension component](https://github.com/lemoncode-xo/CatchPhish-Browser-Extension#catchphish--browser-extension) that facilitates more real time and convinient webpage analysis.
 
 ## Components
 - Desktop Application (This project)
-- [Web Browser Extension ](https://github.com/lemoncode-xo/CatchPhish-Browser-Extension)
+- [Web Browser Extension ](https://github.com/lemoncode-xo/CatchPhish-Browser-Extension#catchphish--browser-extension)
 
 
 ## Features
@@ -153,7 +153,7 @@ rm ~/.config/catchphish  # Remove configuration files
 
 ## Catch-Phish Browser Extension
 
-CatchPhish also has a [browser extension component](https://github.com/lemoncode-xo/CatchPhish-Browser-Extension) that provides real-time protection while browsing. Installation instructions for the extension can be found [here](https://github.com/lemoncode-xo/CatchPhish-Browser-Extension) while pending its release on the Chrome Web Store.
+CatchPhish also has a [browser extension component](https://github.com/lemoncode-xo/CatchPhish-Browser-Extension#catchphish--browser-extension) that provides real-time protection while browsing. Installation instructions for the extension can be found [here](https://github.com/lemoncode-xo/CatchPhish-Browser-Extension#quick-start--end-user-install-from-releases) while pending its release on the Chrome Web Store.
 
 ## Performance
 

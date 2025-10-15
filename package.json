@@ -8,7 +8,8 @@
   "icon": "build/icon.png",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "npx @electron/packager . --icon ./build/icon.ico"
   },
   "keywords": [
     "detect",
